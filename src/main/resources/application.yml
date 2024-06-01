@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: blogging-platform
+  profiles:
+    active: ${active_profile}
+  servlet:
+    context-path: /api/v1/
