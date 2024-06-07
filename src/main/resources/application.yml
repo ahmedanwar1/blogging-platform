@@ -5,3 +5,15 @@ spring:
     active: ${active_profile}
   servlet:
     context-path: /api/v1/
+
+application:
+  security:
+    jwt:
+      secret-key: ${jwt_secret_key}
+      expiration: ${jwt_expiration}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
