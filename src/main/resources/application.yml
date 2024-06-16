@@ -3,8 +3,6 @@ spring:
     name: blogging-platform
   profiles:
     active: ${active_profile}
-  servlet:
-    context-path: /api/v1/
 
 application:
   security:
@@ -17,3 +15,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+
+server:
+  servlet:
+    context-path: /api/v1/

@@ -1,6 +1,8 @@
 package com.example.blogging_platform.model;
 
 import com.example.blogging_platform.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,36 +35,46 @@ import java.util.Objects;
 public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Integer id;
 
     @NotBlank
+    @Column(name = "firstname")
     private String firstname;
 
     @NotBlank
+    @Column(name = "lastname")
     private String lastname;
 
     @Email
     @NotBlank
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank
     @Size(min = 8, message = "Password must be at least 8 characters.")
+    @Column(name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
     @CreatedDate
     @Column(
+            name = "created_at",
             nullable = false,
             updatable = false
     )
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(insertable = false)
+    @Column(name = "last_modified_at", insertable = false)
     private LocalDateTime lastModifiedAt;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Post> posts;
 
 
     //methods for spring security
