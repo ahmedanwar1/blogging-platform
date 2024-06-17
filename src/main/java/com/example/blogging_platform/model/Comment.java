@@ -1,6 +1,5 @@
 package com.example.blogging_platform.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -9,38 +8,25 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "post")
-public class Post {
+@Table(name = "comment")
+public class Comment {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Integer id;
 
     @NotBlank
-    @Column(name = "title")
-    private String title;
-
-    @NotBlank
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Column(name = "content")
     private String content;
-
-    @Column(name = "image_url")
-    private String imageUrl;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
 
     @CreatedDate
     @Column(
@@ -54,21 +40,11 @@ public class Post {
     @Column(name = "last_modified_at", insertable = false)
     private LocalDateTime lastModifiedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "post_keyword",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "keyword_id")
-    )
-    @ToString.Exclude
-    private Set<Keyword> keywords;
-
-    @OneToMany(mappedBy = "post")
-    @ToString.Exclude
-    private Set<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 }
