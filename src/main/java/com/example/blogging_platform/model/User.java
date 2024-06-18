@@ -80,6 +80,10 @@ public class User implements UserDetails, Principal {
     @ToString.Exclude
     private Set<Comment> comments;
 
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private Set<Reaction> reactions;
+
     //methods for spring security
     @Override
     public String getName() {

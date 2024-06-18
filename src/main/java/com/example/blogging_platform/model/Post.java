@@ -71,4 +71,8 @@ public class Post {
     @OneToMany(mappedBy = "post")
     @ToString.Exclude
     private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "post")
+    @ToString.Exclude
+    private Set<Reaction> reactions;
 }
