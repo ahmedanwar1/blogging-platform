@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: blogging-platform
+  profiles:
+    active: ${active_profile}
+
+application:
+  security:
+    jwt:
+      secret-key: ${jwt_secret_key}
+      expiration: ${jwt_expiration}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+server:
+  servlet:
+    context-path: /api/v1/
