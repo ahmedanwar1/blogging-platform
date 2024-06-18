@@ -12,6 +12,8 @@ public record PostResponse(
         LocalDateTime createdAt,
         LocalDateTime lastModifiedAt,
         CategoryResponse category,
-        List<KeywordResponse> keywords
+        List<KeywordResponse> keywords,
+        List<CommentResponse> comments,
+        List<ReactionByPostResponse> reactions
 ) {
 }
